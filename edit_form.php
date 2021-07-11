@@ -9,18 +9,20 @@ use moodleform;
 class cohortheader_form extends moodleform {
  
     function definition() {
+
+        global $PAGE;
  
         $mform =& $this->_form;
         $mform->addElement('header','displayinfo', get_string('cohortheader', 'tool_cohortheader'));
-        $mform->addElement('text', 'name', 'test2');
-        // $mform->addRule('title', null, 'required', null, 'client');
-        //$mform->addElement('html','</br>');
-        
-        $mform->addElement('html', 'test3');
-        $mform->setType('displaytexttext', PARAM_RAW);
-        //$mform->addRule('displaytext', null, 'required', null, 'client');
-        //$mform->addElement('html','</br>');
+        $mform->addElement('text', 'name', get_string('name', 'tool_cohortheader'));
 
+        $options = array(
+            'multiple' => true
+        );
+
+        $mform->addElement('cohort', 'cohorts', get_string('cohortselector', 'tool_cohortheader'), $options);
+        
+        $mform->setType('displaytexttext', PARAM_RAW);
         $mform->addElement('hidden', 'id');    
         $this->add_action_buttons();
     }
