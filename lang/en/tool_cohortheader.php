@@ -26,3 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'cohortheader';
+$string['accountfields'] = 'Account fields';
+$string['cohortheader'] = 'Cohort Header';
