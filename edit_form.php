@@ -48,7 +48,7 @@ class cohortheader_form extends moodleform {
                 'multiple' => true                                                 
             );         
 
-            $mform->addElement('autocomplete', 'config_cohorts', get_string('cohortselector', 'tool_cohortheader'), $allcohorts, $options);
+            $mform->addElement('autocomplete', 'configcohorts', get_string('cohortselector', 'tool_cohortheader'), $allcohorts, $options);
         }
 
         $mform->addElement('textarea', 'additionalhtmlhead', get_string('additionalhtmlhead', 'tool_cohortheader'));

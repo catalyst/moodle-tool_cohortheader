@@ -13,25 +13,28 @@ $PAGE->set_url('/admin/tool/cohortheader/edit.php');
 // $PAGE->set_pagelayout('mydashboard');
 // $PAGE->set_heading(get_string('edithtml', 'block_account'));
 
-$accountform = new cohortheader_form();
-// $accountform->set_data($account);
+$form = new cohortheader_form();
 
-// if($accountform->is_cancelled()) {
-//     // Cancelled forms redirect to the course main page.
-//     $myurl = new moodle_url('/my/');
-//     redirect($myurl);
-// } else if ($fromform=$accountform->get_data()) {      
-//      if (!$DB->update_record('block_account', $fromform)) {
-//      print_error('inserterror', 'block_account');
-//      }
-//     // We need to add code to appropriately act on and store the submitted data
-//     // but for now we will just redirect back to the course main page.
-//     $thisurl = new moodle_url('editaccount.php?id='.$id);
-//     redirect($thisurl);
-// }
-// else
-// {
+if ($data = $form->get_data()) {
+
+    global $DB;
+
+    $toolcohortheader = new \stdClass();
+    $toolcohortheader->name = $data->name;
+    $toolcohortheader->additionalhtmlhead = $data->additionalhtmlhead;
+    $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
+    $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
+
+    $DB->insert_record('tool_cohort_header', $toolcohortheader);
+
+    $toolcohortheadercohort = new \stdClass();
+    $toolcohortheadercohort->cohortheaderid = $form->configcohorts;
+    $toolcohortheadercohort->cohortid = $form->configcohorts;
+
+    $DB->insert_record('tool_cohort_header_cohort', $toolcohortheadercohort);
+
+}
+
 echo $OUTPUT->header();
-$accountform->display();
+$form->display();
 echo $OUTPUT->footer();
-// }
