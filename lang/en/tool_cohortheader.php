@@ -32,6 +32,7 @@ $string['cohortselector'] = 'Cohort selector';
 $string['additionalhtmlhead'] = 'Additional html for head';
 $string['additionalhtmltopofbody'] = 'Additional html for top of body';
 $string['additionalhtmlfooter'] = 'Additional html for footer';
+$string['cohortselection_help'] = 'Show to cohorts';
 
 
 

@@ -6,13 +6,13 @@ require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->libdir.'/completionlib.php');
 require_once("$CFG->libdir/resourcelib.php");
 
-use moodleform;
-
 class cohortheader_form extends moodleform {
  
     function definition() {
 
         global $PAGE, $DB, $CFG, $SITE;
+
+        require_once($CFG->dirroot . '/admin/tool/cohortheader/locallib.php');
 
         $context = context_system::instance();
         $PAGE->set_url($CFG->wwwroot.'/admin/tool/cohortheader/edit.php');
@@ -21,7 +21,6 @@ class cohortheader_form extends moodleform {
         $PAGE->set_heading($SITE->fullname);
                 
         require_login();
-
         $mform =& $this->_form;
 
         // Drop down header.
@@ -30,18 +29,27 @@ class cohortheader_form extends moodleform {
         // Refers to the id of the tool_cohort_header record.
         $mform->addElement('hidden', 'id'); 
         $mform->setType('id', PARAM_INT);
-   
 
         // Allows the admin to give this item a name to help them idendify it.
         $mform->addElement('text', 'name', get_string('name', 'tool_cohortheader'));
         $mform->setType('name', PARAM_TEXT);
 
-        $options = array(
-            'multiple' => true,
-            'showsuggestions' => true
-        );
+        // Get all cohorts.
+        $allcohorts = tool_cohortheaderspecifichtml_get_all_cohorts();
 
-        $mform->addElement('cohort', 'cohorts', get_string('cohortselector', 'tool_cohortheader'), $options);
+        if (!empty($allcohorts)) {
+
+            // Transform object to array.
+            foreach ($allcohorts as $c) {
+                $allcohorts[$c->id] = format_string($c->name);
+            }
+
+            $options = array(                                                                                                           
+                'multiple' => true                                                 
+            );         
+
+            $mform->addElement('autocomplete', 'config_cohorts', get_string('cohortselector', 'tool_cohortheader'), $allcohorts, $options);
+        }
 
         $mform->addElement('textarea', 'additionalhtmlhead', get_string('additionalhtmlhead', 'tool_cohortheader'));
         $mform->setType('additionalhtmlhead', PARAM_TEXT);
