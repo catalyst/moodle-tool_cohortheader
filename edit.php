@@ -9,6 +9,12 @@ global $DB, $OUTPUT, $PAGE;
 // $account = $DB->get_record('block_account', array('id'=>$id), '*');
 
 $PAGE->set_url('/admin/tool/cohortheader/edit.php');
+$PAGE->set_context(context_system::instance());
+require_login();
+
+$PAGE->set_title('blah');
+$PAGE->set_heading('blah');
+
 
 // $PAGE->set_pagelayout('mydashboard');
 // $PAGE->set_heading(get_string('edithtml', 'block_account'));

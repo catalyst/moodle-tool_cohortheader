@@ -13,14 +13,6 @@ class cohortheader_form extends moodleform {
         global $PAGE, $DB, $CFG, $SITE;
 
         require_once($CFG->dirroot . '/admin/tool/cohortheader/locallib.php');
-
-        $context = context_system::instance();
-        $PAGE->set_url($CFG->wwwroot.'/admin/tool/cohortheader/edit.php');
-        $PAGE->set_context($context);
-        $PAGE->set_title($SITE->fullname);
-        $PAGE->set_heading($SITE->fullname);
-                
-        require_login();
         $mform =& $this->_form;
 
         // Drop down header.

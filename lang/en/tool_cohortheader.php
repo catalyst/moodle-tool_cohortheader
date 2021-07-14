@@ -35,4 +35,3 @@ $string['additionalhtmlfooter'] = 'Additional html for footer';
 $string['cohortselection_help'] = 'Show to cohorts';
 
 
-
