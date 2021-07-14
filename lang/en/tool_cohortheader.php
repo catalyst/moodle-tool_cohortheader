@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'cohortheader';
 $string['cohortheader'] = 'Cohort Header';
 $string['name'] = 'Name ';
+$string['edit'] = 'Edit ';
 $string['cohortselector'] = 'Cohort selector';
 $string['additionalhtmlhead'] = 'Additional html for head';
 $string['additionalhtmltopofbody'] = 'Additional html for top of body';
