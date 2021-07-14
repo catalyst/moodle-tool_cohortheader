@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Cohorts header - Locallib file
+ * Cohorts header - lib file
  *
  * @package   tool_cohortheader
  * @copyright 2021 Ant
@@ -39,6 +39,6 @@ function tool_cohortheader_get_headers() {
                                                                                           WHERE cm.userid = :userid AND c.visible = 1)";
         $headers = $DB->get_records_sql($sql, ['userid'] => $USER->id);
     }
-    
+
     return $headers;
 }
