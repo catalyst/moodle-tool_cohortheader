@@ -12,8 +12,8 @@ $PAGE->set_url('/admin/tool/cohortheader/edit.php');
 $PAGE->set_context(context_system::instance());
 require_login();
 
-$PAGE->set_title('blah');
-$PAGE->set_heading('blah');
+$PAGE->set_title($SITE->fullname);
+$PAGE->set_heading($SITE->fullname);
 
 
 // $PAGE->set_pagelayout('mydashboard');

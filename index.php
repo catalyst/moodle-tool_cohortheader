@@ -18,11 +18,6 @@ $cohortheaders = tool_cohortheaderspecifichtml_get_all_cohort_header();
 $table = new html_table();
 $table->head = array(get_string('name', 'tool_cohortheader'), get_string('edit', 'tool_cohortheader'));
 
-// $baseurl = new moodle_url('/cohort/index.php', $params);
-
-// if ($editcontrols = cohort_header_edit_controls($context, $baseurl)) {
-//     echo $OUTPUT->render($editcontrols);
-// }
 $params['contextid'] = 1;
 $baseurl = new moodle_url('/cohort/index.php', $params);
 $urlparams = array('id' => 1, 'returnurl' => $baseurl->out_as_local_url(false));
