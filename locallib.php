@@ -36,6 +36,16 @@ function tool_cohortheaderspecifichtml_get_all_cohorts() {
 }
 
 /**
+ * Get all custom header instances.
+ *
+ * @return array
+ */
+function tool_cohortheaderspecifichtml_get_all_cohort_header() {
+    global $DB;
+    return $DB->get_records_select('tool_cohort_header', '', [], 'name');
+}
+
+/**
  * Get the names of the given cohorts.
  * @param array $ids
  *
