@@ -75,16 +75,5 @@ function cohortheader_delete_cohortheader($cohortheader) {
 
     $DB->delete_records('tool_cohort_header', array('id' => $cohortheader->id));
     $DB->delete_records('tool_cohort_header_cohort', array('cohortheaderid' => $cohortheader->id));
-
-    // Notify the competency subsystem.
-    \core_competency\api::hook_cohort_deleted($cohortheader);
-
-    $event = \core\event\cohort_deleted::create(array(
-        'context' => context::instance_by_id($cohortheader->contextid),
-        'objectid' => $cohortheader->id,
-    ));
-
-    $event->add_record_snapshot('tool_cohort_header', $cohortheader);
-    $event->trigger();
 }
 

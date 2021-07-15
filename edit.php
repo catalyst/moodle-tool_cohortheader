@@ -12,6 +12,7 @@ $id        = optional_param('id', 0, PARAM_INT);
 $contextid = optional_param('contextid', 0, PARAM_INT);
 $delete    = optional_param('delete', 0, PARAM_BOOL);
 $returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
+$confirm   = optional_param('confirm', 0, PARAM_BOOL);
 
 $PAGE->set_url('/admin/tool/cohortheader/edit.php');
 $PAGE->set_context(context_system::instance());
@@ -24,25 +25,25 @@ $form = new cohortheader_form();
 if ($id) {
 
     $cohortheader = $DB->get_record('tool_cohort_header', array('id' => $id), '*', MUST_EXIST);
-    $context = context::instance_by_id($cohort->contextid, MUST_EXIST);
 
 } else {
 
     if ($data = $form->get_data()) {
 
         global $DB;
-    
+        $chortids = $data->configcohorts;
+
         $toolcohortheader = new \stdClass();
         $toolcohortheader->name = $data->name;
         $toolcohortheader->additionalhtmlhead = $data->additionalhtmlhead;
         $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
         $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
     
-        $DB->insert_record('tool_cohort_header', $toolcohortheader);
+        $recordid = $DB->insert_record('tool_cohort_header', $toolcohortheader, $returnid=true);
     
         $toolcohortheadercohort = new \stdClass();
-        $toolcohortheadercohort->cohortheaderid = $form->configcohorts;
-        $toolcohortheadercohort->cohortid = $form->configcohorts;
+        $toolcohortheadercohort->cohortheaderid = $recordid;
+        $toolcohortheadercohort->cohortid = $chortids[0];
     
         $DB->insert_record('tool_cohort_header_cohort', $toolcohortheadercohort);
     
@@ -59,23 +60,29 @@ if ($delete) {
 
     $PAGE->url->param('delete', 1);
 
-    if ($confirm and confirm_sesskey()) {
-        cohort_delete_cohort($cohortheader);
+    if ($confirm && confirm_sesskey()) {
+        cohortheader_delete_cohortheader($cohortheader);
         redirect($returnurl);
     }
 
     $strheading = get_string('deletecohortheader', 'tool_cohortheader');
     $PAGE->navbar->add($strheading);
     $PAGE->set_title($strheading);
-    $PAGE->set_heading(strheading);
+    $PAGE->set_heading($strheading);
 
     echo $OUTPUT->header();
     echo $OUTPUT->heading($strheading);
 
-    $yesurl = new moodle_url('/admin/tool/cohortheader/edit.php', array('id' => $cohortheader->id, 'delete' => 1,
-        'confirm' => 1, 'sesskey' => sesskey(), 'returnurl' => $returnurl->out_as_local_url()));
+    $yesurl = new moodle_url('/admin/tool/cohortheader/edit.php', 
+                            array(
+                                    'id' => $id, 
+                                    'delete' => 1,
+                                    'confirm' => 1, 
+                                    'sesskey' => sesskey(), 
+                                    'returnurl' => $returnurl->out_as_local_url()
+                                ));
 
-    $message = get_string('delconfirm', 'cohort', format_string($cohort->name));
+    $message = get_string('delconfirm', 'tool_cohortheader');
 
     echo $OUTPUT->confirm($message, $yesurl, $returnurl);
     echo $OUTPUT->footer();

@@ -18,10 +18,6 @@ class cohortheader_form extends moodleform {
         // Drop down header.
         $mform->addElement('header','displayinfo', get_string('cohortheader', 'tool_cohortheader'));
 
-        // Refers to the id of the tool_cohort_header record.
-        $mform->addElement('hidden', 'id'); 
-        $mform->setType('id', PARAM_INT);
-
         // Allows the admin to give this item a name to help them idendify it.
         $mform->addElement('text', 'name', get_string('name', 'tool_cohortheader'));
         $mform->setType('name', PARAM_TEXT);
@@ -42,6 +38,10 @@ class cohortheader_form extends moodleform {
 
             $mform->addElement('autocomplete', 'configcohorts', get_string('cohortselector', 'tool_cohortheader'), $allcohorts, $options);
         }
+
+        // Refers to the id of the tool_cohort_header record.
+        $mform->addElement('hidden', 'id'); 
+        $mform->setType('id', PARAM_INT);
 
         $mform->addElement('textarea', 'additionalhtmlhead', get_string('additionalhtmlhead', 'tool_cohortheader'));
         $mform->setType('additionalhtmlhead', PARAM_TEXT);

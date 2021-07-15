@@ -35,5 +35,7 @@ $string['additionalhtmltopofbody'] = 'Additional html for top of body';
 $string['additionalhtmlfooter'] = 'Additional html for footer';
 $string['cohortselection_help'] = 'Show to cohorts';
 $string['deletecohortheader'] = 'Delete cohort header';
+$string['delconfirm'] = 'Are you sure you want to delete this cohort header?';
+
 
 

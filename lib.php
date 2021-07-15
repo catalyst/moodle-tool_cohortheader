@@ -37,7 +37,7 @@ function tool_cohortheader_get_headers() {
                                                                                           FROM {cohort} c
                                                                                           JOIN {cohort_members} cm ON c.id = cm.cohortid
                                                                                           WHERE cm.userid = :userid AND c.visible = 1)";
-        $headers = $DB->get_records_sql($sql, ['userid'] => $USER->id);
+        $headers = $DB->get_records_sql($sql);
     }
 
     return $headers;
