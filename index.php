@@ -23,7 +23,6 @@ if (!empty($cohortheaders))
 {
     foreach ($cohortheaders as $cohortheader)
     {
-
         $params['contextid'] = $context->id;
         $baseurl = new moodle_url('/admin/tool/cohortheader/index.php', $params);
         $urlparams = array('id' => $cohortheader->id, 'returnurl' => $baseurl->out_as_local_url(false));
@@ -34,7 +33,6 @@ if (!empty($cohortheaders))
                 $OUTPUT->pix_icon('t/edit', get_string('edit')),
                 array('title' => get_string('edit'))
             ),
-
             html_writer::link(
                 new moodle_url('/admin/tool/cohortheader/edit.php', $urlparams + array('delete' => 1)),
                 $OUTPUT->pix_icon('t/delete', get_string('delete')),

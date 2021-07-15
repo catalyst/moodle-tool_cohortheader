@@ -66,47 +66,25 @@ function tool_cohortheaderspecifichtml_get_cohort_names($ids) {
 }
 
 /**
- * Returns navigation controls (tabtree) to be displayed on cohort management pages
- *
- * @param context $context system or category context where cohorts controls are about to be displayed
- * @param moodle_url $currenturl
- * @return null|renderable
+ * Delete cohort header records by id.
+ * @param  stdClass $cohortheader
+ * @return void
  */
-function cohort_header_edit_controls(context $context, moodle_url $currenturl) {
+function cohortheader_delete_cohortheader($cohortheader) {
+    global $DB;
 
-    $tabs = array();
-    $currenttab = 'view';
+    $DB->delete_records('tool_cohort_header', array('id' => $cohortheader->id));
+    $DB->delete_records('tool_cohort_header_cohort', array('cohortheaderid' => $cohortheader->id));
 
-    $viewurl = new moodle_url('/cohort/index.php', array('contextid' => $context->id));
-    
-    if (($searchquery = $currenturl->get_param('search'))) {
-        $viewurl->param('search', $searchquery);
-    }
-    if ($context->contextlevel == CONTEXT_SYSTEM) {
-        $tabs[] = new tabobject('view', new moodle_url($viewurl, array('showall' => 0)), get_string('systemcohorts', 'cohort'));
-        $tabs[] = new tabobject('viewall', new moodle_url($viewurl, array('showall' => 1)), get_string('allcohorts', 'cohort'));
-        if ($currenturl->get_param('showall')) {
-            $currenttab = 'viewall';
-        }
-    } else {
-        $tabs[] = new tabobject('view', $viewurl, get_string('cohorts', 'cohort'));
-    }
-    if (has_capability('moodle/cohort:manage', $context)) {
-        $addurl = new moodle_url('/cohort/edit.php', array('contextid' => $context->id));
-        $tabs[] = new tabobject('addcohort', $addurl, get_string('addcohort', 'cohort'));
-        if ($currenturl->get_path() === $addurl->get_path() && !$currenturl->param('id')) {
-            $currenttab = 'addcohort';
-        }
+    // Notify the competency subsystem.
+    \core_competency\api::hook_cohort_deleted($cohortheader);
 
-        $uploadurl = new moodle_url('/cohort/upload.php', array('contextid' => $context->id));
-        $tabs[] = new tabobject('uploadcohorts', $uploadurl, get_string('uploadcohorts', 'cohort'));
-        if ($currenturl->get_path() === $uploadurl->get_path()) {
-            $currenttab = 'uploadcohorts';
-        }
-    }
-    if (count($tabs) > 1) {
-        return new tabtree($tabs, $currenttab);
-    }
-    return null;
+    $event = \core\event\cohort_deleted::create(array(
+        'context' => context::instance_by_id($cohortheader->contextid),
+        'objectid' => $cohortheader->id,
+    ));
+
+    $event->add_record_snapshot('tool_cohort_header', $cohortheader);
+    $event->trigger();
 }
 
