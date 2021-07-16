@@ -133,3 +133,27 @@ function cohortheader_delete_cohortheader($cohortheader) {
     $DB->delete_records('tool_cohort_header_cohort', array('cohortheaderid' => $cohortheader->id));
 }
 
+/**
+ * Get appropriate cohort header info depending on the group the user is in.
+ * @return $headers
+ */
+function tool_cohortheader_get_headers() {
+
+    global $USER, $DB;
+    static $headers = null;
+
+    if (is_null($headers)) {
+
+        $sql = 
+            "SELECT DISTINCT ch.* 
+            FROM {tool_cohort_header} ch
+            JOIN {tool_cohort_header_cohort} chc ON chc.cohortheaderid = ch.id 
+            JOIN {cohort_members} cm ON cm.cohortid = chc.cohortid
+            WHERE cm.userid = ?;";
+
+        $headers = $DB->get_records_sql($sql, array($USER->id));
+    }
+
+    return $headers;
+}
+

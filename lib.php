@@ -23,22 +23,19 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+require_once($CFG->dirroot . '/admin/tool/cohortheader/locallib.php');
 
-function tool_cohortheader_get_headers() {
+$cohortheader = tool_cohortheader_get_headers();
 
-    global $USER;
-    static $headers = null;
+function tool_headtag_before_standard_html_head() {
+    return '<p>'.$cohortheader.'</p>';
+}
 
-    if (is_null($headers)) {
-        $sql = "
-                SELECT ch.* 
-                FROM {tool_cohort_header} ch 
-                JOIN {tool_cohort_header_cohort} chc ON chc.cohortheaderid = ch.id and chc.cohortid IN (SELECT c.*
-                                                                                          FROM {cohort} c
-                                                                                          JOIN {cohort_members} cm ON c.id = cm.cohortid
-                                                                                          WHERE cm.userid = :userid AND c.visible = 1)";
-        $headers = $DB->get_records_sql($sql);
-    }
+function tool_mytool_before_footer() {
+    global $PAGE;
+   $PAGE->requires->js_init_code("alert('before_footer');");
+}
 
-    return $headers;
+function tool_callbacktest_before_standard_top_of_body_html() {
+    return "<div style='background: red'>Before standard top of body html</div>";
 }
