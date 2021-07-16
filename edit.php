@@ -13,7 +13,6 @@ $contextid = optional_param('contextid', 0, PARAM_INT);
 $delete    = optional_param('delete', 0, PARAM_BOOL);
 $returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
 $confirm   = optional_param('confirm', 0, PARAM_BOOL);
-$edit      = false;
 
 $PAGE->set_url('/admin/tool/cohortheader/edit.php');
 $PAGE->set_context(context_system::instance());
@@ -36,8 +35,10 @@ if ($form->get_data()) {
 
     if ($cohortid) {
         cohortheader_update_cohortheader($form);
+        redirect($returnurl, get_string('updatesuccess', 'tool_cohortheader'), null, \core\output\notification::NOTIFY_SUCCESS);
     } else {
         cohortheader_insert_cohortheader($form);
+        redirect($returnurl, get_string('insertsuccess', 'tool_cohortheader'), null, \core\output\notification::NOTIFY_SUCCESS);
     }
 }
 

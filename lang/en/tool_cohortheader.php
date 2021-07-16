@@ -36,6 +36,8 @@ $string['additionalhtmlfooter'] = 'Additional html for footer';
 $string['cohortselection_help'] = 'Show to cohorts';
 $string['deletecohortheader'] = 'Delete cohort header';
 $string['delconfirm'] = 'Are you sure you want to delete this cohort header?';
+$string['insertsuccess'] = 'Cohort header has been successfully added';
+$string['updatesuccess'] = 'Cohort header has been successfully updated';
 
 
 

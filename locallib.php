@@ -71,10 +71,9 @@ function tool_cohortheaderspecifichtml_get_cohort_names($ids) {
  * @param  stdClass $cohortheader
  * @return void
  */
-function cohortheader_insert_cohortheader($form) {
+function cohortheader_insert_cohortheader($data) {
 
     global $DB;
-    $data = $form->get_data();
     $chortids = $data->configcohorts;
 
     $toolcohortheader = new \stdClass();
