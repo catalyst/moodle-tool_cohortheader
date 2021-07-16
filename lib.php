@@ -27,15 +27,15 @@ require_once($CFG->dirroot . '/admin/tool/cohortheader/locallib.php');
 
 $cohortheader = tool_cohortheader_get_headers();
 
-function tool_headtag_before_standard_html_head() {
-    return '<p>'.$cohortheader.'</p>';
+function tool_cohortheader_tool_headtag_before_standard_html_head() {
+    return "<meta name='foo' value='before_top_of_body_html' />\n";
 }
 
-function tool_mytool_before_footer() {
+function tool_cohortheader_tool_mytool_before_footer() {
     global $PAGE;
    $PAGE->requires->js_init_code("alert('before_footer');");
 }
 
-function tool_callbacktest_before_standard_top_of_body_html() {
+function tool_cohortheader_tool_callbacktest_before_standard_top_of_body_html() {
     return "<div style='background: red'>Before standard top of body html</div>";
 }
