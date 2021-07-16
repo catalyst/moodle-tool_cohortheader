@@ -13,6 +13,7 @@ $contextid = optional_param('contextid', 0, PARAM_INT);
 $delete    = optional_param('delete', 0, PARAM_BOOL);
 $returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
 $confirm   = optional_param('confirm', 0, PARAM_BOOL);
+$edit      = false;
 
 $PAGE->set_url('/admin/tool/cohortheader/edit.php');
 $PAGE->set_context(context_system::instance());
@@ -21,41 +22,26 @@ $PAGE->set_heading($SITE->fullname);
 
 $form = new cohortheader_form();
 
-// If id is valid then edit record rather than creating one.
-if ($id) {
-
-    $cohortheader = $DB->get_record('tool_cohort_header', array('id' => $id), '*', MUST_EXIST);
-
-} else {
-
-    if ($data = $form->get_data()) {
-
-        global $DB;
-        $chortids = $data->configcohorts;
-
-        $toolcohortheader = new \stdClass();
-        $toolcohortheader->name = $data->name;
-        $toolcohortheader->additionalhtmlhead = $data->additionalhtmlhead;
-        $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
-        $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
-    
-        $recordid = $DB->insert_record('tool_cohort_header', $toolcohortheader, $returnid=true);
-    
-        $toolcohortheadercohort = new \stdClass();
-        $toolcohortheadercohort->cohortheaderid = $recordid;
-        $toolcohortheadercohort->cohortid = $chortids[0];
-    
-        $DB->insert_record('tool_cohort_header_cohort', $toolcohortheadercohort);
-    
-    }
-}
-
 if ($returnurl) {
     $returnurl = new moodle_url($returnurl);
 } else {
     $returnurl = new moodle_url('/admin/tool/cohortheader/index.php', array('contextid' => $context->id));
 }
 
+// Update or insert cohortheader record.
+if ($form->get_data()) {
+
+    $form = $form->get_data();
+    $cohortid = $form->cohortheaderid;
+
+    if ($cohortid) {
+        cohortheader_update_cohortheader($form);
+    } else {
+        cohortheader_insert_cohortheader($form);
+    }
+}
+
+// Delete record cohortheader record.
 if ($delete) {
 
     $PAGE->url->param('delete', 1);

@@ -65,6 +65,63 @@ function tool_cohortheaderspecifichtml_get_cohort_names($ids) {
     return $cohortnames;
 }
 
+
+/**
+ * Insert cohort header records
+ * @param  stdClass $cohortheader
+ * @return void
+ */
+function cohortheader_insert_cohortheader($form) {
+
+    global $DB;
+    $data = $form->get_data();
+    $chortids = $data->configcohorts;
+
+    $toolcohortheader = new \stdClass();
+    $toolcohortheader->name = $data->name;
+    $toolcohortheader->additionalhtmlhead = $data->additionalhtmlhead;
+    $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
+    $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
+
+    $recordid = $DB->insert_record('tool_cohort_header', $toolcohortheader, $returnid = true);
+
+    $toolcohortheadercohort = new \stdClass();
+    $toolcohortheadercohort->cohortheaderid = $recordid;
+    $toolcohortheadercohort->cohortid = $chortids[0];
+
+    $DB->insert_record('tool_cohort_header_cohort', $toolcohortheadercohort);
+}
+
+/**
+ * Update cohort header records by id.
+ * @param  stdClass $cohortheader
+ * @return void
+ */
+function cohortheader_update_cohortheader($data) {
+
+    global $DB;
+
+    $chortids = $data->configcohorts;
+
+    $toolcohortheader = new \stdClass();
+    $toolcohortheader->id = $data->cohortheaderid;
+    $toolcohortheader->name = $data->name;
+    $toolcohortheader->additionalhtmlhead = $data->additionalhtmlhead;
+    $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
+    $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
+
+    $DB->update_record('tool_cohort_header', $toolcohortheader, $returnid = true);
+
+    $toolcohortheadercohortrecord = $DB->get_record('tool_cohort_header_cohort', ['cohortheaderid' => $data->cohortheaderid]);
+
+    $toolcohortheadercohort = new \stdClass();
+    $toolcohortheadercohort->id = $toolcohortheadercohortrecord->id;
+    $toolcohortheadercohort->cohortheaderid = $data->cohortheaderid;
+    $toolcohortheadercohort->cohortid = $chortids[0];
+
+    $DB->update_record('tool_cohort_header_cohort', $toolcohortheadercohort, $bulk=false);
+}
+
 /**
  * Delete cohort header records by id.
  * @param  stdClass $cohortheader
