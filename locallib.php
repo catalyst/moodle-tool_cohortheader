@@ -84,11 +84,14 @@ function cohortheader_insert_cohortheader($data) {
 
     $recordid = $DB->insert_record('tool_cohort_header', $toolcohortheader, $returnid = true);
 
-    $toolcohortheadercohort = new \stdClass();
-    $toolcohortheadercohort->cohortheaderid = $recordid;
-    $toolcohortheadercohort->cohortid = $chortids[0];
+    foreach($chortids as $chortid) {
 
-    $DB->insert_record('tool_cohort_header_cohort', $toolcohortheadercohort);
+        $toolcohortheadercohort = new \stdClass();
+        $toolcohortheadercohort->cohortheaderid = $recordid;
+        $toolcohortheadercohort->cohortid = $chortid;
+
+        $DB->insert_record('tool_cohort_header_cohort', $toolcohortheadercohort);
+    }
 }
 
 /**
@@ -113,12 +116,16 @@ function cohortheader_update_cohortheader($data) {
 
     $toolcohortheadercohortrecord = $DB->get_record('tool_cohort_header_cohort', ['cohortheaderid' => $data->cohortheaderid]);
 
-    $toolcohortheadercohort = new \stdClass();
-    $toolcohortheadercohort->id = $toolcohortheadercohortrecord->id;
-    $toolcohortheadercohort->cohortheaderid = $data->cohortheaderid;
-    $toolcohortheadercohort->cohortid = $chortids[0];
+    foreach($chortids as $chortid) {
 
-    $DB->update_record('tool_cohort_header_cohort', $toolcohortheadercohort, $bulk=false);
+        $toolcohortheadercohort = new \stdClass();
+        $toolcohortheadercohort->id = $toolcohortheadercohortrecord->id;
+        $toolcohortheadercohort->cohortheaderid = $data->cohortheaderid;
+        $toolcohortheadercohort->cohortid = $chortid;
+    
+        $DB->update_record('tool_cohort_header_cohort', $toolcohortheadercohort, $bulk=false);
+    }
+
 }
 
 /**
