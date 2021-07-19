@@ -21,6 +21,10 @@ $PAGE->set_heading($SITE->fullname);
 
 $form = new cohortheader_form();
 
+if($id){
+    $cohortheader = $DB->get_record('tool_cohort_header', array('id' => $id), '*', MUST_EXIST);
+}
+
 if ($returnurl) {
     $returnurl = new moodle_url($returnurl);
 } else {
