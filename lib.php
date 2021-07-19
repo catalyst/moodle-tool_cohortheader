@@ -32,7 +32,7 @@ function tool_cohortheader_before_standard_html_head() {
 
     if(!empty($cohortheaders)){
         foreach($cohortheaders as $cohortheader) {
-            $meta_headers[] = "<meta name='".$cohortheader->name."' value='".$cohortheader->additionalhtmlhead."' />\n";
+            $meta_headers[] = $cohortheader->additionalhtmlhead."\n";
         }
         $line = implode(' ', $meta_headers);
     }
@@ -47,7 +47,7 @@ function tool_cohortheader_before_footer() {
 
     if(!empty($cohortheaders)){
         foreach($cohortheaders as $cohortheader) {
-            $beforefooter[] = "<div style='background: red'>".$cohortheader->additionalhtmlfooter."</div>\n";
+            $beforefooter[] = "<div>".$cohortheader->additionalhtmlfooter."</div>\n";
         }
 
         $line = implode(' ', $beforefooter);
@@ -62,7 +62,7 @@ function tool_cohortheader_before_standard_top_of_body_html() {
 
     if(!empty($cohortheaders)){
         foreach($cohortheaders as $cohortheader) {
-            $topofbody[] = "<div style='background: red'>".$cohortheader->additionalhtmltopofbody."</div>\n";
+            $topofbody[] = "<div>".$cohortheader->additionalhtmltopofbody."</div>\n";
         }
 
         $line = implode(' ', $topofbody);
