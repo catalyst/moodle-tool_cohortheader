@@ -25,17 +25,48 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/admin/tool/cohortheader/locallib.php');
 
-$cohortheader = tool_cohortheader_get_headers();
+function tool_cohortheader_before_standard_html_head() {
 
-function tool_cohortheader_tool_headtag_before_standard_html_head() {
-    return "<meta name='foo' value='before_top_of_body_html' />\n";
+    $line = '';
+    $cohortheaders = tool_cohortheader_get_headers();
+
+    if(!empty($cohortheaders)){
+        foreach($cohortheaders as $cohortheader) {
+            $meta_headers[] = "<meta name='".$cohortheader->name."' value='".$cohortheader->additionalhtmlhead."' />\n";
+        }
+        $line = implode(' ', $meta_headers);
+    }
+
+    return $line;
 }
 
-function tool_cohortheader_tool_mytool_before_footer() {
+function tool_cohortheader_before_footer() {
     global $PAGE;
-   $PAGE->requires->js_init_code("alert('before_footer');");
+    $line = '';
+    $cohortheaders = tool_cohortheader_get_headers();
+
+    if(!empty($cohortheaders)){
+        foreach($cohortheaders as $cohortheader) {
+            $beforefooter[] = "<div style='background: red'>".$cohortheader->additionalhtmlfooter."</div>\n";
+        }
+
+        $line = implode(' ', $beforefooter);
+    }
+
+    return $line;
 }
 
-function tool_cohortheader_tool_callbacktest_before_standard_top_of_body_html() {
-    return "<div style='background: red'>Before standard top of body html</div>";
+function tool_cohortheader_before_standard_top_of_body_html() {
+    $line = '';
+    $cohortheaders = tool_cohortheader_get_headers();
+
+    if(!empty($cohortheaders)){
+        foreach($cohortheaders as $cohortheader) {
+            $topofbody[] = "<div style='background: red'>".$cohortheader->additionalhtmltopofbody."</div>\n";
+        }
+
+        $line = implode(' ', $topofbody);
+    }
+
+    return $line;
 }
