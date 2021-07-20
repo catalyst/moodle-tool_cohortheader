@@ -1,8 +1,6 @@
 # cohortheader #
 
-TODO Describe the plugin shortly here.
-
-TODO Provide more detailed description here.
+Allows a moodle admin to apply custom headers to cohorts 
 
 ## Installing via uploaded ZIP file ##
 
