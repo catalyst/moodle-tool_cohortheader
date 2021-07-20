@@ -32,7 +32,7 @@ use core_privacy\local\metadata\collection;
 /**
  * Data provider class.
  *
- * @package    core_auth
+ * @package    tool_cohortheader
  * @copyright  2021 Ant
  * @author     Ant
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -44,14 +44,12 @@ class provider implements
     /**
      * Returns metadata.
      *
-     * @param collection 
-     * @return collection 
+     * @param collection $collection The initialised collection to add items to.
+     * @return collection A listing of user data stored through this system.
      */
     public static function get_metadata(collection $collection) : collection {
-
         return $collection;
     }
-
 }
 
 

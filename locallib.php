@@ -68,7 +68,7 @@ function tool_cohortheaderspecifichtml_get_cohort_names($ids) {
 
 /**
  * Insert cohort header records
- * @param  stdClass $cohortheader
+ * @param  stdClass $data
  * @return void
  */
 function cohortheader_insert_cohortheader($data) {
@@ -84,7 +84,7 @@ function cohortheader_insert_cohortheader($data) {
 
     $recordid = $DB->insert_record('tool_cohort_header', $toolcohortheader, $returnid = true);
 
-    foreach($chortids as $chortid) {
+    foreach ($chortids as $chortid) {
 
         $toolcohortheadercohort = new \stdClass();
         $toolcohortheadercohort->cohortheaderid = $recordid;
@@ -96,7 +96,7 @@ function cohortheader_insert_cohortheader($data) {
 
 /**
  * Update cohort header records by id.
- * @param  stdClass $cohortheader
+ * @param  stdClass $data
  * @return void
  */
 function cohortheader_update_cohortheader($data) {
@@ -116,14 +116,14 @@ function cohortheader_update_cohortheader($data) {
 
     $toolcohortheadercohortrecord = $DB->get_record('tool_cohort_header_cohort', ['cohortheaderid' => $data->cohortheaderid]);
 
-    foreach($chortids as $chortid) {
+    foreach ($chortids as $chortid) {
 
         $toolcohortheadercohort = new \stdClass();
         $toolcohortheadercohort->id = $toolcohortheadercohortrecord->id;
         $toolcohortheadercohort->cohortheaderid = $data->cohortheaderid;
         $toolcohortheadercohort->cohortid = $chortid;
-    
-        $DB->update_record('tool_cohort_header_cohort', $toolcohortheadercohort, $bulk=false);
+
+        $DB->update_record('tool_cohort_header_cohort', $toolcohortheadercohort, $bulk = false);
     }
 
 }
@@ -151,10 +151,10 @@ function tool_cohortheader_get_headers() {
 
     if (is_null($headers)) {
 
-        $sql = 
-            "SELECT DISTINCT ch.* 
+        $sql =
+            "SELECT DISTINCT ch.*
             FROM {tool_cohort_header} ch
-            JOIN {tool_cohort_header_cohort} chc ON chc.cohortheaderid = ch.id 
+            JOIN {tool_cohort_header_cohort} chc ON chc.cohortheaderid = ch.id
             JOIN {cohort_members} cm ON cm.cohortid = chc.cohortid
             WHERE cm.userid = ?;";
 

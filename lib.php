@@ -25,28 +25,36 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/admin/tool/cohortheader/locallib.php');
 
+/**
+ * Add data to head.
+ * @return string $line
+ */
 function tool_cohortheader_before_standard_html_head() {
 
     $line = '';
     $cohortheaders = tool_cohortheader_get_headers();
 
-    if(!empty($cohortheaders)){
-        foreach($cohortheaders as $cohortheader) {
-            $meta_headers[] = $cohortheader->additionalhtmlhead."\n";
+    if (!empty($cohortheaders)) {
+        foreach ($cohortheaders as $cohortheader) {
+            $metaheaders[] = $cohortheader->additionalhtmlhead."\n";
         }
-        $line = implode(' ', $meta_headers);
+        $line = implode(' ', $metaheaders);
     }
 
     return $line;
 }
 
+/**
+ * Add data to footer.
+ * @return string $line
+ */
 function tool_cohortheader_before_footer() {
     global $PAGE;
     $line = '';
     $cohortheaders = tool_cohortheader_get_headers();
 
-    if(!empty($cohortheaders)){
-        foreach($cohortheaders as $cohortheader) {
+    if (!empty($cohortheaders)) {
+        foreach ($cohortheaders as $cohortheader) {
             $beforefooter[] = "<div>".$cohortheader->additionalhtmlfooter."</div>\n";
         }
 
@@ -56,12 +64,16 @@ function tool_cohortheader_before_footer() {
     return $line;
 }
 
+/**
+ * Add data to top of body.
+ * @return string $line
+ */
 function tool_cohortheader_before_standard_top_of_body_html() {
     $line = '';
     $cohortheaders = tool_cohortheader_get_headers();
 
-    if(!empty($cohortheaders)){
-        foreach($cohortheaders as $cohortheader) {
+    if (!empty($cohortheaders)) {
+        foreach ($cohortheaders as $cohortheader) {
             $topofbody[] = "<div>".$cohortheader->additionalhtmltopofbody."</div>\n";
         }
 
