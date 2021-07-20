@@ -50,7 +50,7 @@ class cohortheader_form extends moodleform {
 
         $id = '';
         $name = '';
-        $configcohorts = '';
+        $configcohorts = null;
         $additionalhtmlhead = '';
         $additionalhtmltopofbody = '';
         $additionalhtmlfooter = '';
@@ -58,9 +58,15 @@ class cohortheader_form extends moodleform {
         if (optional_param('id', 0, PARAM_INT)) {
             $id = optional_param('id', 0, PARAM_INT);
             $cohortheader = $DB->get_record('tool_cohort_header', array('id' => $id), '*', MUST_EXIST);
-            $cohortheadercohort = $DB->get_record('tool_cohort_header_cohort', array('cohortheaderid' => $id), '*', MUST_EXIST);
+            $cohortheadercohorts = $DB->get_records('tool_cohort_header_cohort', array('cohortheaderid' => $id));
+
+            if (!empty($cohortheadercohorts)) {
+                foreach($cohortheadercohorts as $cohortheadercohort){
+                    $configcohorts[] = $cohortheadercohort->cohortid;
+                }
+            }
+
             $name = $cohortheader->name;
-            $configcohorts = $cohortheadercohort->cohortid;
             $additionalhtmlhead = $cohortheader->additionalhtmlhead;
             $additionalhtmltopofbody = $cohortheader->additionalhtmltopofbody;
             $additionalhtmlfooter = $cohortheader->additionalhtmlfooter;
@@ -97,7 +103,7 @@ class cohortheader_form extends moodleform {
                                'configcohorts',
                                 get_string('cohortselector', 'tool_cohortheader'),
                                 $allcohorts,
-                                $options);
+                                $option);
 
             $mform->setDefault('configcohorts', $configcohorts);
         }
@@ -117,15 +123,16 @@ class cohortheader_form extends moodleform {
         $this->add_action_buttons();
     }
 
-    /**
-     * Form validation.
-     *
-     * @param array $data
-     * @return array $errors
-     */
-    public function validation($data) {
-        global $CFG, $DB;
-        $errors = parent::validation($data, $files);
-        return $errors;
-    }
+    // /**
+    //  * Form validation.
+    //  *
+    //  * @param array $data
+    //  * @return array $errors
+    //  */
+    // public function validation($data) {
+    //     global $CFG, $DB;
+    //     $errors = null;
+    //     // $errors = parent::validation($data, $files);
+    //     return $errors;
+    // }
 }
