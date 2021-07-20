@@ -61,7 +61,7 @@ class cohortheader_form extends moodleform {
             $cohortheadercohorts = $DB->get_records('tool_cohort_header_cohort', array('cohortheaderid' => $id));
 
             if (!empty($cohortheadercohorts)) {
-                foreach($cohortheadercohorts as $cohortheadercohort){
+                foreach ($cohortheadercohorts as $cohortheadercohort) {
                     $configcohorts[] = $cohortheadercohort->cohortid;
                 }
             }
@@ -123,16 +123,28 @@ class cohortheader_form extends moodleform {
         $this->add_action_buttons();
     }
 
-    // /**
-    //  * Form validation.
-    //  *
-    //  * @param array $data
-    //  * @return array $errors
-    //  */
-    // public function validation($data) {
-    //     global $CFG, $DB;
-    //     $errors = null;
-    //     // $errors = parent::validation($data, $files);
-    //     return $errors;
-    // }
+    /**
+     * Form validation.
+     *
+     * @param array $data
+     * @param array $files
+     * @return array $errors
+     */
+    public function validation($data, $files) {
+        global $CFG, $DB;
+
+        $errors = parent::validation($data, $files);
+
+        if (strlen(trim($data['name'])) < 1) {
+            $errors['name'] = get_string('errorname', 'tool_cohortheader');
+        } else if (empty($data['configcohorts'])) {
+            $errors['configcohorts'] = get_string('errorconfigcohort', 'tool_cohortheader');
+        }
+
+        return $errors;
+    }
 }
+
+
+
+
