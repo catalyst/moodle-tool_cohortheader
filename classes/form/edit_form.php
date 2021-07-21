@@ -21,9 +21,11 @@
  * @copyright 2021 Ant
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+namespace tool_cohortheader\form;
 defined('MOODLE_INTERNAL') || die;
 
+use moodleform;
+use context_system;
 require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->libdir.'/completionlib.php');
 require_once("$CFG->libdir/resourcelib.php");
@@ -36,7 +38,7 @@ require_once("$CFG->libdir/resourcelib.php");
  * @copyright  2021 Ant
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class cohortheader_form extends moodleform {
+class edit_form extends moodleform {
 
     /**
      * Form definition.

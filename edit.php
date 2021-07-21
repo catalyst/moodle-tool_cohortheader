@@ -23,7 +23,6 @@
  */
 
 require_once('../../../config.php');
-require_once($CFG->dirroot.'/admin/tool/cohortheader/edit_form.php');
 
 global $DB, $OUTPUT, $PAGE;
 
@@ -41,7 +40,7 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_title($SITE->fullname);
 $PAGE->set_heading($SITE->fullname);
 
-$form = new cohortheader_form();
+$form = new tool_cohortheader\form\edit_form();
 
 if ($id) {
     $cohortheader = $DB->get_record('tool_cohort_header', array('id' => $id), '*', MUST_EXIST);
