@@ -55,7 +55,7 @@ function tool_cohortheader_before_footer() {
 
     if (!empty($cohortheaders)) {
         foreach ($cohortheaders as $cohortheader) {
-            $beforefooter[] = "<span class='tool_cohortheader'>".$cohortheader->additionalhtmlfooter."</span>\n";
+            $beforefooter[] = "<div><span class='tool_cohortheader'>".$cohortheader->additionalhtmlfooter."</span></div>\n";
         }
 
         $line = implode(' ', $beforefooter);
@@ -74,7 +74,7 @@ function tool_cohortheader_before_standard_top_of_body_html() {
 
     if (!empty($cohortheaders)) {
         foreach ($cohortheaders as $cohortheader) {
-            $topofbody[] = "<span class='tool_cohortheader'>".$cohortheader->additionalhtmltopofbody."</span>\n";
+            $topofbody[] = "<div><span class='tool_cohortheader'>".$cohortheader->additionalhtmltopofbody."</span></div>\n";
         }
 
         $line = implode(' ', $topofbody);

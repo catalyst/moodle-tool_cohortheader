@@ -155,8 +155,8 @@ function tool_cohortheader_get_headers() {
             "SELECT DISTINCT ch.*
             FROM {tool_cohortheader} ch
             JOIN {tool_cohortheader_cohort} chc ON chc.cohortheaderid = ch.id
-            JOIN {cohort_members} cm ON cm.cohortid = chc.cohortid
-            WHERE cm.userid = ?;";
+            LEFT JOIN {cohort_members} cm ON cm.cohortid = chc.cohortid
+            WHERE cm.userid = ? IS NOT NULL;";
 
         $headers = $DB->get_records_sql($sql, array($USER->id));
     }
