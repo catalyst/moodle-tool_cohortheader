@@ -40,5 +40,6 @@ $string['insertsuccess'] = 'Cohort header has been successfully added';
 $string['updatesuccess'] = 'Cohort header has been successfully updated';
 $string['errorname'] = 'Please enter a name for this cohort header';
 $string['errorconfigcohort'] = 'Please select atleast one cohort to apply this header to.';
+$string['managecohortheaders'] = 'Apply cohort headers';
 
 
