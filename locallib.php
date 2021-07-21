@@ -71,7 +71,7 @@ function tool_cohortheaderspecifichtml_get_cohort_names($ids) {
  * @param  stdClass $data
  * @return void
  */
-function cohortheader_insert_cohortheader($data) {
+function tool_cohortheader_insert_cohortheader($data) {
 
     global $DB;
     $chortids = $data->configcohorts;
@@ -99,7 +99,7 @@ function cohortheader_insert_cohortheader($data) {
  * @param  stdClass $data
  * @return void
  */
-function cohortheader_update_cohortheader($data) {
+function tool_cohortheader_update_cohortheader($data) {
 
     global $DB;
 
@@ -133,7 +133,7 @@ function cohortheader_update_cohortheader($data) {
  * @param  stdClass $cohortheader
  * @return void
  */
-function cohortheader_delete_cohortheader($cohortheader) {
+function tool_cohortheader_delete_cohortheader($cohortheader) {
     global $DB;
 
     $DB->delete_records('tool_cohort_header', array('id' => $cohortheader->id));

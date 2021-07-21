@@ -59,10 +59,10 @@ if ($form->get_data()) {
     $cohortid = $form->cohortheaderid;
 
     if ($cohortid) {
-        cohortheader_update_cohortheader($form);
+        tool_cohortheader_update_cohortheader($form);
         redirect($returnurl, get_string('updatesuccess', 'tool_cohortheader'), null, \core\output\notification::NOTIFY_SUCCESS);
     } else {
-        cohortheader_insert_cohortheader($form);
+        tool_cohortheader_insert_cohortheader($form);
         redirect($returnurl, get_string('insertsuccess', 'tool_cohortheader'), null, \core\output\notification::NOTIFY_SUCCESS);
     }
 }
@@ -73,7 +73,7 @@ if ($delete) {
     $PAGE->url->param('delete', 1);
 
     if ($confirm && confirm_sesskey()) {
-        cohortheader_delete_cohortheader($cohortheader);
+        tool_cohortheader_delete_cohortheader($cohortheader);
         redirect($returnurl);
     }
 
