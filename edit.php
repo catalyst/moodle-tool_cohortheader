@@ -43,7 +43,7 @@ $PAGE->set_heading($SITE->fullname);
 $form = new tool_cohortheader\form\edit_form();
 
 if ($id) {
-    $cohortheader = $DB->get_record('tool_cohort_header', array('id' => $id), '*', MUST_EXIST);
+    $cohortheader = $DB->get_record('tool_cohortheader', array('id' => $id), '*', MUST_EXIST);
 }
 
 if ($returnurl) {

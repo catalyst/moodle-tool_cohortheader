@@ -42,7 +42,7 @@ function tool_cohortheaderspecifichtml_get_all_cohorts() {
  */
 function tool_cohortheaderspecifichtml_get_all_cohort_header() {
     global $DB;
-    return $DB->get_records_select('tool_cohort_header', '', [], 'name');
+    return $DB->get_records_select('tool_cohortheader', '', [], 'name');
 }
 
 /**
@@ -82,7 +82,7 @@ function tool_cohortheader_insert_cohortheader($data) {
     $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
     $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
 
-    $recordid = $DB->insert_record('tool_cohort_header', $toolcohortheader, $returnid = true);
+    $recordid = $DB->insert_record('tool_cohortheader', $toolcohortheader, $returnid = true);
 
     foreach ($chortids as $chortid) {
 
@@ -90,7 +90,7 @@ function tool_cohortheader_insert_cohortheader($data) {
         $toolcohortheadercohort->cohortheaderid = $recordid;
         $toolcohortheadercohort->cohortid = $chortid;
 
-        $DB->insert_record('tool_cohort_header_cohort', $toolcohortheadercohort);
+        $DB->insert_record('tool_cohortheader_cohort', $toolcohortheadercohort);
     }
 }
 
@@ -112,9 +112,9 @@ function tool_cohortheader_update_cohortheader($data) {
     $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
     $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
 
-    $DB->update_record('tool_cohort_header', $toolcohortheader, $returnid = true);
+    $DB->update_record('tool_cohortheader', $toolcohortheader, $returnid = true);
 
-    $toolcohortheadercohortrecord = $DB->get_record('tool_cohort_header_cohort', ['cohortheaderid' => $data->cohortheaderid]);
+    $toolcohortheadercohortrecord = $DB->get_record('tool_cohortheader_cohort', ['cohortheaderid' => $data->cohortheaderid]);
 
     foreach ($chortids as $chortid) {
 
@@ -123,7 +123,7 @@ function tool_cohortheader_update_cohortheader($data) {
         $toolcohortheadercohort->cohortheaderid = $data->cohortheaderid;
         $toolcohortheadercohort->cohortid = $chortid;
 
-        $DB->update_record('tool_cohort_header_cohort', $toolcohortheadercohort, $bulk = false);
+        $DB->update_record('tool_cohortheader_cohort', $toolcohortheadercohort, $bulk = false);
     }
 
 }
@@ -136,8 +136,8 @@ function tool_cohortheader_update_cohortheader($data) {
 function tool_cohortheader_delete_cohortheader($cohortheader) {
     global $DB;
 
-    $DB->delete_records('tool_cohort_header', array('id' => $cohortheader->id));
-    $DB->delete_records('tool_cohort_header_cohort', array('cohortheaderid' => $cohortheader->id));
+    $DB->delete_records('tool_cohortheader', array('id' => $cohortheader->id));
+    $DB->delete_records('tool_cohortheader_cohort', array('cohortheaderid' => $cohortheader->id));
 }
 
 /**
@@ -153,8 +153,8 @@ function tool_cohortheader_get_headers() {
 
         $sql =
             "SELECT DISTINCT ch.*
-            FROM {tool_cohort_header} ch
-            JOIN {tool_cohort_header_cohort} chc ON chc.cohortheaderid = ch.id
+            FROM {tool_cohortheader} ch
+            JOIN {tool_cohortheader_cohort} chc ON chc.cohortheaderid = ch.id
             JOIN {cohort_members} cm ON cm.cohortid = chc.cohortid
             WHERE cm.userid = ?;";
 

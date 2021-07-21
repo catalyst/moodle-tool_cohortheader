@@ -59,8 +59,8 @@ class edit_form extends moodleform {
 
         if (optional_param('id', 0, PARAM_INT)) {
             $id = optional_param('id', 0, PARAM_INT);
-            $cohortheader = $DB->get_record('tool_cohort_header', array('id' => $id), '*', MUST_EXIST);
-            $cohortheadercohorts = $DB->get_records('tool_cohort_header_cohort', array('cohortheaderid' => $id));
+            $cohortheader = $DB->get_record('tool_cohortheader', array('id' => $id), '*', MUST_EXIST);
+            $cohortheadercohorts = $DB->get_records('tool_cohortheader_cohort', array('cohortheaderid' => $id));
 
             if (!empty($cohortheadercohorts)) {
                 foreach ($cohortheadercohorts as $cohortheadercohort) {
@@ -77,7 +77,7 @@ class edit_form extends moodleform {
         // Drop down header.
         $mform->addElement('header', 'displayinfo', get_string('cohortheader', 'tool_cohortheader'));
 
-        // Refers to the id of the tool_cohort_header record.
+        // Refers to the id of the tool_cohortheader record.
         $mform->addElement('hidden', 'cohortheaderid');
         $mform->setType('cohortheaderid', PARAM_INT);
         $mform->setDefault('cohortheaderid', $id);
