@@ -82,7 +82,7 @@ function tool_cohortheader_insert_cohortheader($data) {
     $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
     $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
 
-    $recordid = $DB->insert_record('tool_cohortheader', $toolcohortheader, $returnid = true);
+    $recordid = $DB->insert_record('tool_cohortheader', $toolcohortheader);
 
     foreach ($chortids as $chortid) {
 
@@ -100,7 +100,6 @@ function tool_cohortheader_insert_cohortheader($data) {
  * @return void
  */
 function tool_cohortheader_update_cohortheader($data) {
-
     global $DB;
 
     $chortids = $data->configcohorts;
@@ -112,18 +111,24 @@ function tool_cohortheader_update_cohortheader($data) {
     $toolcohortheader->additionalhtmltopofbody = $data->additionalhtmltopofbody;
     $toolcohortheader->additionalhtmlfooter = $data->additionalhtmlfooter;
 
-    $DB->update_record('tool_cohortheader', $toolcohortheader, $returnid = true);
+    $DB->update_record('tool_cohortheader', $toolcohortheader);
 
-    $toolcohortheadercohortrecord = $DB->get_record('tool_cohortheader_cohort', ['cohortheaderid' => $data->cohortheaderid]);
+    $existingcohorts = $DB->get_records_menu('tool_cohortheader_cohort', ['cohortheaderid' => $data->cohortheaderid], '', 'cohortid as id, cohortid');
+    foreach ($existingcohorts as $existingcohort) {
+        if (!in_array($existingcohort, $chortids)) {
+            $DB->delete_records('tool_cohortheader_cohort', ['cohortheaderid' => $data->cohortheaderid, 'cohortid' => $existingcohort]);
+        }
+    }
 
     foreach ($chortids as $chortid) {
+        if (!in_array($chortid, $existingcohorts)) {
 
-        $toolcohortheadercohort = new \stdClass();
-        $toolcohortheadercohort->id = $toolcohortheadercohortrecord->id;
-        $toolcohortheadercohort->cohortheaderid = $data->cohortheaderid;
-        $toolcohortheadercohort->cohortid = $chortid;
+            $toolcohortheadercohort = new \stdClass();
+            $toolcohortheadercohort->cohortheaderid = $data->cohortheaderid;
+            $toolcohortheadercohort->cohortid = $chortid;
 
-        $DB->update_record('tool_cohortheader_cohort', $toolcohortheadercohort, $bulk = false);
+            $DB->insert_record('tool_cohortheader_cohort', $toolcohortheadercohort);
+        }
     }
 
 }
@@ -163,4 +168,3 @@ function tool_cohortheader_get_headers() {
 
     return $headers;
 }
-
