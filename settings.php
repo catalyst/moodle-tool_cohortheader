@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // Add this admin page only if the user has all of the required capabilities.
 if ($hassiteconfig) {
-    $url = new moodle_url('/admin/tool/cohortheader/edit.php');
+    $url = new moodle_url('/admin/tool/cohortheader/index.php');
     $ADMIN->add('appearance', new admin_externalpage('toolcohortheader',
         get_string('managecohortheaders', 'tool_cohortheader'), $url));
 }

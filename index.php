@@ -28,8 +28,8 @@ require_once($CFG->dirroot . '/admin/tool/cohortheader/locallib.php');
 global $DB, $OUTPUT, $PAGE;
 
 require_login();
-
 $context = context_system::instance();
+require_capability('moodle/site:config', $context);
 
 $PAGE->set_url('/admin/tool/cohortheader/edit.php');
 $PAGE->set_context($context);
@@ -66,4 +66,5 @@ if (!empty($cohortheaders)) {
 
 echo $OUTPUT->header();
 echo html_writer::table($table);
+echo $OUTPUT->single_button(new moodle_url('/admin/tool/cohortheader/edit.php'), get_string('add'));
 echo $OUTPUT->footer();

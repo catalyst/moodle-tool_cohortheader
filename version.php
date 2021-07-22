@@ -28,4 +28,4 @@ $plugin->component = 'tool_cohortheader';
 $plugin->release = '0.2.0';
 $plugin->version = 2021070401;
 $plugin->requires = 2021010800;
-$plugin->maturity = MATURITY_ALPHA;
+$plugin->maturity = MATURITY_STABLE;
