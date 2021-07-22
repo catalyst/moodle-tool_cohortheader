@@ -113,10 +113,13 @@ function tool_cohortheader_update_cohortheader($data) {
 
     $DB->update_record('tool_cohortheader', $toolcohortheader);
 
-    $existingcohorts = $DB->get_records_menu('tool_cohortheader_cohort', ['cohortheaderid' => $data->cohortheaderid], '', 'cohortid as id, cohortid');
+    $existingcohorts = $DB->get_records_menu('tool_cohortheader_cohort',
+                                            ['cohortheaderid' => $data->cohortheaderid], '', 'cohortid as id, cohortid');
+
     foreach ($existingcohorts as $existingcohort) {
         if (!in_array($existingcohort, $chortids)) {
-            $DB->delete_records('tool_cohortheader_cohort', ['cohortheaderid' => $data->cohortheaderid, 'cohortid' => $existingcohort]);
+            $DB->delete_records('tool_cohortheader_cohort',
+                                ['cohortheaderid' => $data->cohortheaderid, 'cohortid' => $existingcohort]);
         }
     }
 
