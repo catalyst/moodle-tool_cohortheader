@@ -18,24 +18,15 @@
  * Cohorts header - admin configs
  *
  * @package   tool_cohortheader
- * @copyright 2021 Ant
+ * @copyright Catalyst IT 2021
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-// This tool's required capabilities.
-$capabilities = [
-    'moodle/site:config'
-];
-
-// Check if the user has all of the required capabilities.
-$context = context_system::instance();
-$hasaccess = has_all_capabilities($capabilities, $context);
-
 // Add this admin page only if the user has all of the required capabilities.
-if ($hasaccess) {
-    $str = get_string('managecohortheaders', 'tool_cohortheader');
+if ($hassiteconfig) {
     $url = new moodle_url('/admin/tool/cohortheader/edit.php');
-    $ADMIN->add('roles', new admin_externalpage('toolcohortheader', $str, $url, $capabilities));
+    $ADMIN->add('appearance', new admin_externalpage('toolcohortheader',
+        get_string('managecohortheaders', 'tool_cohortheader'), $url));
 }

@@ -18,7 +18,7 @@
  * Cohorts header - Locallib file
  *
  * @package   tool_cohortheader
- * @copyright 2021 Ant
+ * @copyright Catalyst IT 2021
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

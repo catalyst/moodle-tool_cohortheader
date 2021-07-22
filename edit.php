@@ -18,7 +18,7 @@
  * Cohorts header - edit file
  *
  * @package   tool_cohortheader
- * @copyright 2021 Ant
+ * @copyright Catalyst IT 2021
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,6 +28,7 @@ global $DB, $OUTPUT, $PAGE;
 
 require_login();
 $context = context_system::instance();
+require_capability('moodle/site:config', $context);
 
 $id        = optional_param('id', 0, PARAM_INT);
 $contextid = optional_param('contextid', 0, PARAM_INT);
