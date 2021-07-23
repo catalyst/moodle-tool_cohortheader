@@ -1,4 +1,4 @@
-# cohortheader #
+# Cohort based additional html settings #
 
 This plugin was developed thanks to funding from Xi’an Jiaotong-Liverpool University (https://www.xjtlu.edu.cn)
 
