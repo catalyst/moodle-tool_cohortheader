@@ -1,6 +1,8 @@
-# cohortheader #
+# Cohort based additional html settings #
 
-Allows a moodle admin to apply custom headers to cohorts 
+This plugin was developed thanks to funding from Xi’an Jiaotong-Liverpool University (https://www.xjtlu.edu.cn)
+
+This plugin allows the site administrator to add html to the header or footer of a site based on the users site-level cohorts similar to the core additionalhtml settings.
 
 ## Installing via uploaded ZIP file ##
 
@@ -27,7 +29,7 @@ to complete the installation from the command line.
 
 ## License ##
 
-Catalyst IT 2021
+2021 Catalyst IT
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
