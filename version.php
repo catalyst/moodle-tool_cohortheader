@@ -18,14 +18,14 @@
  * Plugin version and other meta-data are defined here.
  *
  * @package     tool_cohortheader
- * @copyright   2021 Ant
+ * @copyright   Catalyst IT 2021
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'tool_cohortheader';
-$plugin->release = '0.3.0';
+$plugin->release = '0.4.0';
 $plugin->version = 2021070403;
 $plugin->requires = 2021010800;
 $plugin->maturity = MATURITY_STABLE;

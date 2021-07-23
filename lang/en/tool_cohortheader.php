@@ -19,7 +19,7 @@
  *
  * @package     tool_cohortheader
  * @category    string
- * @copyright   2021 Ant
+ * @copyright   Catalyst IT 2021
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

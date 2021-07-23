@@ -33,8 +33,7 @@ use core_privacy\local\metadata\collection;
  * Data provider class.
  *
  * @package    tool_cohortheader
- * @copyright  2021 Ant
- * @author     Ant
+ * @copyright Catalyst IT 2021
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements
