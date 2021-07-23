@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'tool_cohortheader';
 $plugin->release = '0.4.0';
-$plugin->version = 2021070403;
+$plugin->version = 2021070404;
 $plugin->requires = 2021010800;
 $plugin->maturity = MATURITY_STABLE;
