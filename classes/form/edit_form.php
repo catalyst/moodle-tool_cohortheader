@@ -110,15 +110,18 @@ class edit_form extends moodleform {
             $mform->setDefault('configcohorts', $configcohorts);
         }
 
-        $mform->addElement('textarea', 'additionalhtmlhead', get_string('additionalhtmlhead', 'tool_cohortheader'));
+        $mform->addElement('textarea', 'additionalhtmlhead', get_string('additionalhtmlhead', 'tool_cohortheader'),
+            ['rows' => 4, 'cols' => 120]);
         $mform->setType('additionalhtmlhead', PARAM_RAW);
         $mform->setDefault('additionalhtmlhead', $additionalhtmlhead);
 
-        $mform->addElement('textarea', 'additionalhtmltopofbody', get_string('additionalhtmltopofbody', 'tool_cohortheader'));
+        $mform->addElement('textarea', 'additionalhtmltopofbody', get_string('additionalhtmltopofbody', 'tool_cohortheader'),
+            ['rows' => 4, 'cols' => 120]);
         $mform->setType('additionalhtmltopofbody', PARAM_RAW);
         $mform->setDefault('additionalhtmltopofbody', $additionalhtmltopofbody);
 
-        $mform->addElement('textarea', 'additionalhtmlfooter', get_string('additionalhtmlfooter', 'tool_cohortheader'));
+        $mform->addElement('textarea', 'additionalhtmlfooter', get_string('additionalhtmlfooter', 'tool_cohortheader'),
+            ['rows' => 4, 'cols' => 120]);
         $mform->setType('additionalhtmlfooter', PARAM_RAW);
         $mform->setDefault('additionalhtmlfooter', $additionalhtmlfooter);
 
